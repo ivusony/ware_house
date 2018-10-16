@@ -1,0 +1,121 @@
+<% include ./partials/header %>
+<% include ./partials/navbar %>
+  
+
+<!-- PASSED OBJ users -->
+
+
+<div class="ui centered grid">
+        <div class="ten wide tablet three wide computer column">
+            <h2>Add new user</h2>
+            <div class="ui tiny form">
+                    <form class="ui form" action="/admin" method="POST">
+                            <div class="field">
+                              <label>Username</label>
+                              <input type="text" name="username" placeholder="">
+                            </div>
+                            <div class="field">
+                              <label>Password</label>
+                              <input type="password" name="password" placeholder="">
+                            </div>
+                            <div class="field">
+                                    <label>Right to create units</label>
+                                       <select name="canCreate"  required>
+                                            <option value=""></option>
+                                           <option value="true">Yes</option>
+                                           <option value="false">No</option>
+                                       </select>
+                                </div>
+                            <div class="field">
+                                <label>Right to edit units</label>
+                                   <select name="canEdit"  required>
+                                        <option value=""></option>
+                                       <option value="true">Yes</option>
+                                       <option value="false">No</option>
+                                   </select>
+                            </div>
+                            <div class="field">
+                                    <label>Right to delete units</label>
+                                       <select name="canDelete"  required>
+                                            <option value=""></option>
+                                           <option value="true">Yes</option>
+                                           <option value="false">No</option>
+                                       </select>
+                                </div>
+                            <button class="ui button" type="submit">Add user</button>
+                          </form>
+            </div>
+        </div>
+</div>
+
+<div class="ui centered grid">
+        <div class="twelve wide tablet ten wide computer column">
+            <table class="ui striped table">
+                <thead>
+                    <tr class="center aligned">
+                        <th colspan="7">KORISNICI</th>
+                    </tr>
+                    <tr class="center aligned">
+                        <th>ID</th>
+                        <th>USERNAME</th>
+                        <th>PRAVO KREIRANJA</th>
+                        <th>PRAVO IZMENE</th>
+                        <th>PRAVO BRISANJA</th>
+                        <th>IZMENA PRAVA</th>
+                        <th>BRISANJE KORISNIKA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <% users.forEach(user=>{ %>
+                        <tr class="center aligned">
+                            <td>
+                                <%= user._id %>
+                            </td>
+                            <td>
+                                <%= user.username %>
+                            </td>
+                            <td>
+                                <% if(user.canCreate){ %>
+                                    <i class="green thumbs up icon"></i>
+                                <% }else{ %>
+                                    <i class="red thumbs down icon"></i>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if(user.canEdit){ %>
+                                    <i class="green thumbs up icon"></i>
+                                <% }else{ %>
+                                    <i class="red thumbs down icon"></i>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if(user.canDelete){ %>
+                                    <i class="green thumbs up icon"></i>
+                                <% }else{ %>
+                                    <i class="red thumbs down icon"></i>
+                                <% } %>
+                            </td>
+                            <!-- NEED TO RUN SEPARATE SCRIPT TO MAKE A NEW SUPER USER ON SERVER AND CHANGE AUTH -->
+                            <% if(user.username != 'superadmin'){ %>    
+                            <td>
+                                <form action="/admin" method="">
+                                    <button type="submit" class="mini ui button">Izmeni</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/admin/<%= user._id %>?_method=DELETE" method="POST" > 
+                                    <button type="submit" class="mini ui button">Ukloni</button>
+                                </form>
+                            </td>
+                            <% } %>
+                        </tr>
+                    <% }) %>
+                </tbody>
+             </table>
+        </div>
+</div>
+
+
+
+
+<% include ./partials/footer %>

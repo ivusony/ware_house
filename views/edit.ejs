@@ -1,0 +1,118 @@
+<% include ./partials/header %>
+<% include ./partials/navbar %>
+
+<!-- //passed object from app.js: unit
+//object properties: code, name, ammount, unit
+
+//posting  -->
+
+<div class="ui centered grid">
+        <div class="two fields">
+            <div class="field">
+                <h1>NA STANJU:</h1>
+            </div>
+            <div class="field">
+                <h1><%= unit.ammount %></h1>
+            </div>
+        </div>
+</div>
+<br>
+<hr>
+<br>
+
+<% if(currentUser.canEdit){ %>
+<div class="ui centered grid">
+        <div class="twelve wide tablet ten wide computer column">
+            <div class="ui tiny form">
+                    <form action="/stanje/<%=unit._id%>?_method=PUT" method="POST">
+                    <div class="six fields">
+                        <div class="field">
+                            <label>Šifra objekta</label>
+                            <input placeholder="Sifra" name="code" type="text" value="<%= unit.code %>" disabled>
+                        </div>
+                        <div class="field">
+                            <label>Naziv objekta</label>
+                            <input placeholder="Naziv" name="name" type="text" value="<%= unit.name %>" disabled>
+                        </div>
+                        <div class="field" style="visibility: hidden">
+                            <label>Trenutno na stanju</label>
+                            <input placeholder="Na stanju" name="ammount" type="text" value="<%= unit.ammount %>" >
+                        </div>
+                        <div class="field">
+                            <label>Dodaj na stanje</label>
+                            <input placeholder="Dodaj" name="add" type="number" value="" >
+                        </div>
+                        <div class="field">
+                            <label>Skini sa stanja</label>
+                            <input placeholder="Oduzmi" name="substract" type="number" value="" >
+                        </div>
+                        <div class="field">
+                            <label>Jedinica mere</label>
+                            <select name="unit">
+                                    <option value="<%= unit.unit %>"><%= unit.unit %></option>
+                                    <option value="m">m</option>
+                                    <option value="kom">kom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <label>Komentar</label>
+                    <textarea name="comment" style="resize: none"></textarea>
+                    <button class="ui submit button">Sačuvaj izmene</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <% } %>  
+
+    <!-- //changes list table
+        //from 'unit' object passed from app.js
+    -->
+
+<div class="ui centered grid">
+    <div class="twelve wide tablet ten wide computer column">
+        <table class="ui striped table">
+            <thead>
+                <tr class="center aligned">
+                    <th colspan="6">KARTON OBJEKTA</th>
+                </tr>
+                <tr class="center aligned">
+                    <th>VREME</th>
+                    <th>IZMENU IZVRŠIO</th>
+                    <th>DODATO</th>
+                    <th>SKINUTO</th>
+                    <th>PROMENE</th>
+                    <th>KOMENTARI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% unit.changes.forEach(el=>{ %>
+                    <tr class="center aligned">
+                        <td><%= el.date %></td>
+                        <td><%= el.by %></td>
+                        <td>
+                            <% if(isNaN(el.added)){ %>
+                                <%= el.added = 0 %>
+                            <% }else{ %>
+                                <%= el.added %>
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if(isNaN(el.substracted)){ %>
+                                <%= el.substracted = 0 %>
+                            <% }else{ %>
+                                <%= el.substracted %>
+                            <% } %>
+                        </td>
+                        <td><%= el.to%></td>
+                        <td style=" text-align:justify"><%= el.comment%></td>
+                    </tr>
+                <% }) %> 
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<% include ./partials/footer %>

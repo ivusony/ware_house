@@ -1,0 +1,38 @@
+<% include ./partials/header %>
+<% include ./partials/navbar %>
+
+
+    <div class="ui centered grid">
+            <div class="ten wide twelve twelve wide computer column">
+                <div class="ui tiny form">
+                        <form action="/stanje" method="POST">
+                        <div class="four fields">
+                            <div class="field">
+                                <label>Šifra objekta</label>
+                                <input placeholder="SIFRA" name="newUnit[code]" type="text" required>
+                            </div>
+                            <div class="field">
+                                <label>Naziv objekta</label>
+                                <input placeholder="NAZIV" name="newUnit[name]" type="text" required>
+                            </div>
+                            <div class="field">
+                                <label>Količina</label>
+                                <input placeholder="Kolicina" name="newUnit[ammount]" type="number" required>
+                            </div>
+                            <div class="field">
+                                <label>Jedinica mere</label>
+                                <select name="newUnit[unit]" required >
+                                        <option value=""></option>
+                                        <option value="m">m</option>
+                                        <option value="kom">kom</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="ui submit button">Unesi novu stavku</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+<% include ./partials/footer %>

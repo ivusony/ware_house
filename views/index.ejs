@@ -1,0 +1,84 @@
+<% include ./partials/header %>
+<% include ./partials/navbar %>
+  
+<div class="ui stackable six column centered grid">
+    <div class=" twelve wide tablet twelve wide computer column">
+
+            <div class="ui fluid category search">
+                <div class="ui icon  input">
+                    <input class="prompt center" id="search_items" placeholder="Pretraga po" type="text">
+                    <i class="search icon"></i>
+                </div>
+                <select class="ui dropdown" id="scrby">
+                    <option value="name">nazivu objekta</option>
+                    <option value="code">sifri objekta</option>
+                </select>
+                <div class="results">
+                    <p id="dummyresult"></p>
+                </div>
+            </div>
+
+        <table class="ui six small stackable  black striped table">
+            <thead>
+                <tr class="center aligned">
+                    <th colspan="6">MAGACIN: </th>
+                </tr>
+                <tr class="center aligned">
+                    <th>Šifra objekta</th>
+                    <th>Naziv objekta</th>
+                    <th>Dostupno</th>
+                    <th>Jedinica mere</th>
+                        <th>Izmene</th>
+                    <% if(currentUser.canDelete){ %>
+                        <th>Brisanje</th>
+                    <% } %>
+                </tr>
+            </thead>
+            <tbody>
+            <% units.forEach(el=>{ %>
+                <tr class="center aligned">
+                    <td><%= el.code %></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.ammount %> </td>
+                    <td><%= el.unit %></td>
+                        <td>
+                            <div class="ui center aligned ">
+                                <form action="/stanje/<%= el._id%>" method="GET">
+                                    <button class="ui icon basic  button" type="submit" <%- currentUser.admin %>><i class="edit  icon"></i></button> 
+                                </form>
+                            </div>
+                        </td>
+                        <% if(currentUser.canDelete){ %>
+                        <td>                
+                            <div class="ui center aligned ">
+                                <form action="/stanje/<%= el._id %>?_method=DELETE" method="POST" > 
+                                    <button class="ui icon   button" type="submit" <%- currentUser.admin %>><i class="delete icon"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                        <% } %>
+                </tr>
+            <% }) %>  
+            </tbody>
+        </table>
+    </div>
+</div>  
+
+
+<div class="ui two column centered grid">
+    <div class="four column centered row">
+        <div class="column" style="text-align:center;">
+            <!-- <form action="/stanje/noviunos" method="GET">
+                <button class="ui green button" type="submit" <%- currentUser.admin %>><i class="plus icon"></i></i>Novi unos</button>
+            </form> -->
+        </div>
+        <div class="column" style="text-align:center;">
+            <!-- <form action="/stanje/noviunos" method="GET">
+                <button class="ui orange button" type="submit"><i class="print icon"></i>Štampaj</button>
+            </form>       -->
+        </div>
+    </div>
+</div>
+
+
+<% include ./partials/footer %>
