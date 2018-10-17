@@ -150,7 +150,7 @@ app.get('/stanje', isLoggedIn, function(req, res){
 //search_items.js passing ajax query to app.js which queries the DB and sends back data to search_items.js
 
 app.post('/search', function(req, res, next){
-    let search = req.body.value;
+    let search = req.sanitize(req.body.value);
     let srcby  = req.body.srcby;
 
     //setting the qury dinam. by passing objet to query
@@ -159,11 +159,9 @@ app.post('/search', function(req, res, next){
     
     Unit.find(query, function(err, unitfound){
         if(!unitfound.length){
-            console.log("error! No units found " + err);
             res.sendStatus(400);
         }else{
-            res.json(unitfound)
-            console.log(unitfound)
+            res.json(unitfound);
         }
     })
 })
@@ -213,7 +211,7 @@ app.delete('/stanje/:id', function(req, res){
 
 //RENDER EDIT FORM AND GET CHANGES FROM DB
 
-app.get('/stanje/:id', function(req, res){
+app.get('/stanje/:id',  isLoggedIn ,function(req, res){
     Unit.findById(req.params.id, (err, foundUnit)=>{
         if (err) {
             res.redirect('/stanje')

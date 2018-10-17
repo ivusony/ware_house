@@ -1,4 +1,8 @@
-$('#search_items').on('keyup', function(){
+(function(){
+
+
+
+  $('#search_items').on('keyup', function(){
   
         var val = $.trim($('#search_items').val());
         var srcby = $('.dropdown option:selected').val();
@@ -42,11 +46,9 @@ $('#search_items').on('keyup', function(){
 
       return str
     }
-})
+  })
 
 
 
-$(document).on('click', function(){
-  
+})()
 
-})
