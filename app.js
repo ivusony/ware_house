@@ -144,6 +144,7 @@ app.get('/stanje', isLoggedIn, function(req, res){
             })
         }
     });
+    console.log(req.user)
 })
 
 //SEARCH ITEMS
