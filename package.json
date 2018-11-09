@@ -21,5 +21,13 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivusony/ware_house.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ivusony/ware_house/issues"
+  },
+  "homepage": "https://github.com/ivusony/ware_house#readme"
 }
