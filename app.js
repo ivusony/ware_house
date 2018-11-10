@@ -1,4 +1,4 @@
-let express = require('express'),
+const express = require('express'),
     app = express(),
     port = 3000,
     bodyParser = require('body-parser'),
@@ -10,9 +10,9 @@ let express = require('express'),
     expressSanitizer = require('express-sanitizer');
 
     //CUSTOM MODULES
-let Unit = require('./models/unitModel'),   //new unit-input schema
-    timestamp = require('./getDate'),
-    User = require('./models/user');    //new user schema
+const   Unit        = require('./models/unitModel'),   //new unit-input schema
+        timestamp   = require('./getDate'),
+        User        = require('./models/user');    //new user schema
 
     //APP CONFIG
     mongoose.connect('mongodb://localhost/magacin_app');
@@ -42,172 +42,33 @@ let Unit = require('./models/unitModel'),   //new unit-input schema
         next();
     });
 
+//CONTROLLERS
 
-
+//login controller: hanles rendering and auth
+const loginController = require("./controllers/login");
+const adminController = require("./controllers/admin");
+const indexController = require("./controllers/index");
+const inputController = require("./controllers/input");
 
 //ROUTES
 
-
 //===================================================================
-//LOGIN/LOGOUT
-
-//RENDER LOGIN FORM
-
-app.get('/login', function(req, res){
-    res.render('login')
-})
-
-//LOGIN LOGIC
-
-app.post('/login' ,passport.authenticate('local', {
-    successRedirect: '/stanje',
-    failureRedirect: '/login'
-}) , function(req, res){
-    console.log(callback)
-})
-
-//LOGOUT
-app.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/login')
-})
+app.get('/login', loginController.renderPage); //render login
+app.post('/login' , loginController.authUser); //auth user
+app.get('/logout', loginController.logout);  //logout user
 //===================================================================
-
-//ADMIN PAGE
-
-//RENDER
-
-app.get('/admin', isLoggedIn, isAuthorised, function(req, res){
-    User.find({}, function(err, users){
-        if (err) {
-            console.log('error' + err)
-        }else{
-            res.render('adminPage', {
-                users : users
-            })
-        }
-    });
-})
-
-//add user
-app.post('/admin', function(req, res){
-    User.register(new User({username: req.body.username, canCreate: req.body.canCreate, canEdit: req.body.canEdit, canDelete: req.body.canDelete}),req.body.password, function(err, user){
-        if (err) {
-            console.log('=================================');
-            console.log('Error adding user:');
-            console.log(err);
-            console.log('=================================');
-        }else{
-            console.log('=================================');
-            console.log('User added:');
-            console.log(user);
-            console.log('================================='); 
-            res.redirect('/admin');
-        }
-    })
-    
-})
-
-//destroy user
-
-app.delete('/admin/:id', function(req, res){
-    //destroy 
-    User.findByIdAndRemove(req.params.id, function(err){
-        if(err){
-            console.log('===============================');
-            console.log('error:');
-            console.log(err);
-            console.log('===============================');
-            res.redirect('/admin');
-        }else{
-            res.redirect('/admin');
-        }
-    })
-})
-
+app.get('/admin', isLoggedIn, isAuthorised, adminController.renderUsers); //render existing users
+app.post('/admin', adminController.addUser); //add user
+app.delete('/admin/:id', adminController.destroyUser); //destroy user
 //==================================================================
+app.get('/', indexController.redirect); //redirect to stanje
+app.get('/stanje', isLoggedIn, indexController.renderUnits); //render index page with units and current user
+app.post('/search', indexController.searchUnits); //search units
+app.delete('/stanje/:id', indexController.destroyUnit)//destroy unit
+//==================================================================
+app.get('/stanje/noviunos', isLoggedIn, inputController.renderPage); //render new input form
+app.post('/stanje', inputController.saveUnit); //save new unit
 
-//INDEX ROUTE
-app.get('/', function(req, res){
-    res.redirect('/stanje');
-})
-
-//RENDER INDEX PAGE
-app.get('/stanje', isLoggedIn, function(req, res){
-    Unit.find({}, function(err, units){
-        if (err) {
-            console.log('error' + err)
-        }else{
-            res.render('index', {
-                units : units,
-                currentUser: req.user
-            })
-        }
-    });
-    console.log(req.user)
-})
-
-//SEARCH ITEMS
-//search_items.js passing ajax query to app.js which queries the DB and sends back data to search_items.js
-
-app.post('/search', function(req, res, next){
-    let search = req.sanitize(req.body.value);
-    let srcby  = req.body.srcby;
-
-    //setting the qury dinam. by passing objet to query
-    var query = {};
-    query[srcby] = {$regex: new RegExp(search, 'i')};
-    
-    Unit.find(query, function(err, unitfound){
-        if(!unitfound.length){
-            res.sendStatus(400);
-        }else{
-            res.json(unitfound);
-        }
-    })
-})
-
-//RENDER NEW INPUT FORM
-app.get('/stanje/noviunos', isLoggedIn, function(req, res){
-    res.render('newinputform')
-})
-
-//POST NEW INPUT AND REDIRECT TO INDEX
-app.post('/stanje', function(req, res){
-    req.body.newUnit.code = req.sanitize(req.body.newUnit.code);
-    req.body.newUnit.name = req.sanitize(req.body.newUnit.name);
-    req.body.newUnit.ammount = req.sanitize(parseInt(req.body.newUnit.ammount));
-
-    Unit.create(req.body.newUnit, function(err, unitCreated){
-        if (err) {
-            res.render('newinputform', {
-                currentUser : req.user.username
-            });
-            console.log(err);
-        }else{
-            res.redirect('/');
-            console.log('Data saved ' +  unitCreated);
-        }
-    })
-})
-
-
-//DELETE INPUT
-
-app.delete('/stanje/:id', function(req, res){
-    //destroy 
-    Unit.findByIdAndRemove(req.params.id, function(err){
-        if(err){
-            console.log('===============================');
-            console.log('error:');
-            console.log(err);
-            console.log('===============================');
-            res.redirect('/');
-        }else{
-            res.redirect('/');
-        }
-    })
-})
 
 
 //RENDER EDIT FORM AND GET CHANGES FROM DB
