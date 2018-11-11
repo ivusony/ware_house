@@ -12,7 +12,7 @@ const   express                 = require('express'),
 //new user schema
 const   User                    = require('./models/user');
 //DB CONNECTION
-        mongoose.connect('mongodb://localhost/magacin_app');
+        mongoose.connect('mongodb://localhost/testdb');
 //TEMPLATING ENGINE SETUP
         app.set('view engine', 'ejs');
 //SESSION
