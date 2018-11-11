@@ -60,3 +60,7 @@ body {
     -moz-box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
     box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
 }
+
+.font_light {
+    color: seashell !important;
+}

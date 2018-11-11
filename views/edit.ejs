@@ -7,12 +7,12 @@
 //posting  -->
 
 <div class="ui centered grid">
-        <div class="two fields">
+        <div class="two fields font_light">
             <div class="field">
                 <h1>NA STANJU:</h1>
             </div>
             <div class="field">
-                <h1><%= unit.ammount %></h1>
+                <h1><%= unit.ammount %> <%= unit.unit %></h1>
             </div>
         </div>
 </div>
@@ -27,27 +27,27 @@
                     <form action="/stanje/<%=unit._id%>?_method=PUT" method="POST">
                     <div class="six fields">
                         <div class="field">
-                            <label>Šifra objekta</label>
+                            <label class="font_light">Šifra objekta</label>
                             <input placeholder="Sifra" name="code" type="text" value="<%= unit.code %>" disabled>
                         </div>
                         <div class="field">
-                            <label>Naziv objekta</label>
+                            <label class="font_light">Naziv objekta</label>
                             <input placeholder="Naziv" name="name" type="text" value="<%= unit.name %>" disabled>
                         </div>
                         <div class="field" style="visibility: hidden">
-                            <label>Trenutno na stanju</label>
+                            <label class="font_light">Trenutno na stanju</label>
                             <input placeholder="Na stanju" name="ammount" type="text" value="<%= unit.ammount %>" >
                         </div>
                         <div class="field">
-                            <label>Dodaj na stanje</label>
+                            <label class="font_light">Dodaj na stanje</label>
                             <input id="add" placeholder="Dodaj" name="add" type="number" value="" >
                         </div>
                         <div class="field">
-                            <label>Skini sa stanja</label>
+                            <label class="font_light">Skini sa stanja</label>
                             <input id="sub" placeholder="Oduzmi" name="substract" type="number" value="" >
                         </div>
                         <div class="field">
-                            <label>Jedinica mere</label>
+                            <label class="font_light">Jedinica mere</label>
                             <select name="unit">
                                     <option value="<%= unit.unit %>"><%= unit.unit %></option>
                                     <option value="m">m</option>
@@ -55,7 +55,7 @@
                             </select>
                         </div>
                     </div>
-                    <label>Komentar</label>
+                    <label class="font_light">Komentar</label>
                     <textarea id="comment" name="comment" style="resize: none"></textarea>
                     <button class="ui submit button" id="save_changes">Sačuvaj izmene</button>
                 </form>

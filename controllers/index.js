@@ -35,16 +35,11 @@
             })
         },
         destroyUnit : function(req, res){
-            //destroy 
-            Unit.findByIdAndRemove(req.params.id, function(err){
+            Unit.findByIdAndRemove(req.body.id, function(err){
                 if(err){
-                    console.log('===============================');
-                    console.log('error:');
-                    console.log(err);
-                    console.log('===============================');
-                    res.redirect('/');
+                    res.sendStatus(404);
                 }else{
-                    res.redirect('/');
+                    res.sendStatus(200);
                 }
             })
         }

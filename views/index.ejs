@@ -22,9 +22,10 @@
         <table class="ui six small stackable  compact single line table">
             <thead>
                 <tr class="center aligned">
-                    <th colspan="6">MAGACIN: </th>
+                    <th colspan="7">MAGACIN: </th>
                 </tr>
                 <tr class="center aligned">
+                    <th>Redni broj</th>
                     <th>Šifra objekta</th>
                     <th>Naziv objekta</th>
                     <th>Dostupno</th>
@@ -36,8 +37,10 @@
                 </tr>
             </thead>
             <tbody>
+                <% let counter = 1 %>
             <% units.forEach(el=>{ %>
                 <tr class="center aligned">
+                    <td><%= counter++ %></td>
                     <td><%= el.code %></td>
                     <td><%= el.name %></td>
                     <td><%= el.ammount %> </td>
@@ -52,8 +55,9 @@
                         <% if(currentUser.canDelete){ %>
                         <td>                
                             <div class="ui center aligned ">
-                                <form action="/stanje/<%= el._id %>?_method=DELETE" method="POST" > 
-                                    <button class="ui icon   button" type="submit" <%- currentUser.admin %>><i class="delete icon"></i></button>
+                                <form>
+                                <!-- <form action="/stanje/<%= el._id %>?_method=DELETE" method="POST" >  -->
+                                    <button id="<%= el._id %>" class="ui icon delete button" type="submit" <%- currentUser.admin %>><i class="delete icon"></i></button>
                                 </form>
                             </div>
                         </td>
@@ -81,5 +85,20 @@
     </div>
 </div>
 
+
+<div class="ui mini modal">
+    <div class="header">Izbrisati unos?</div>
+    <div class="image content">
+        <div class="actions">
+            <div class="ui red cancel inverted button delete_unit">
+                <i class="trash icon"></i>
+                          Izbrisi
+                </div>
+                <div class="ui green ok inverted button cancel_delete">
+                          Odustani
+                </div>
+        </div>
+    </div>
+</div>
 
 <% include ./partials/footer %>
