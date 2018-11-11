@@ -12,11 +12,11 @@
                 }else{
                     res.render('index', {
                         units : units,
-                        currentUser: req.user
+                        currentUser: res.locals.currentUser
                     })
                 }
             });
-            console.log(req.user)
+            // console.log(req.user)
         },
         searchUnits : function(req, res, next){
             let search = req.sanitize(req.body.value);

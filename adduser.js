@@ -13,7 +13,7 @@ let User = require('./models/user');
 mongoose.connect('mongodb://localhost/magacin_app');
 
 
-// ADD USER TO DB
+// ADD USER TO DBase
 
 let username = 'admin';
 let admin = 'enabled';

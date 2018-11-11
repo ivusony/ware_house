@@ -1,33 +1,36 @@
 
-body, html {
+body {
     height: 100%;
+    background-color: rgba(27, 36, 39, 0.9);
     
 }
 
 .bg {
+    padding: 0%;
     /* The image used */
-    background-image: url("/img/Fiber-Optics-Wallpaper.jpg");
-
+    /* background-color: #001a33; */
     /* Full height */
     height: 100%;
+    background-color: transparent;
 
-    /* Center and scale the image nicely */
+    /* Center and scale the image nicely
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
     
     
 
 }
 
 .fg {
+    /* margin: 0% !important; */
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: transparent;
     
 }
 .fg2 {
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.4) !important;
+    /* background-color: rgba(151, 151, 151, 0.7) !important; */
     
 }
 
@@ -39,4 +42,21 @@ body, html {
     
     border-radius: 0rem;
 
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+}
+#footer-p {
+    text-align: center;
+    color: rgba(241, 241, 241, 0.2);
+}
+
+#login-form {
+    background: rgba(241, 241, 241, 0.7);
+    -webkit-box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
+    -moz-box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
+    box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
 }
