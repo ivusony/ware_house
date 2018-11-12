@@ -1,5 +1,6 @@
 {
-    const   Unit    = require('../models/unitModel');
+    const   Unit    = require('../models/unitModel'),
+            User    = require('../models/user');
 
     module.exports = {
         redirect : function(req, res){
@@ -8,7 +9,8 @@
         renderUnits : function(req, res){
             Unit.find({}, function(err, units){
                 if (err) {
-                    console.log('error' + err)
+                    console.log('error' + err);
+                    res.send(`Error occured. No units found.`);
                 }else{
                     res.render('index', {
                         units : units,
@@ -17,6 +19,22 @@
                 }
             });
             // console.log(req.user)
+        },
+        showWelcome : function(req, res, next){
+            console.log(req.session);
+            res.send(res.locals.currentUser)
+        },
+        unshowWelcome : function(req, res, next){
+            console.log(req.body.id);
+            User.findByIdAndUpdate({_id:req.body.id}, {
+                $set:{showWelcome:false}
+            }, (err, updated)=>{
+                if (err) {
+                    console.log(err)
+                }else{
+                    console.log(updated)
+                }
+            })
         },
         searchUnits : function(req, res, next){
             let search = req.sanitize(req.body.value);

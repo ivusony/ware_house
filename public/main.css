@@ -38,11 +38,11 @@ body {
     display: inherit !important
 }
 
-.ui.search .prompt {
+/* .ui.search .prompt {
     
     border-radius: 0rem;
 
-}
+} */
 
 .footer {
     position: absolute;

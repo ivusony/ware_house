@@ -1,6 +1,7 @@
 <% include ./partials/header %>
 <% include ./partials/navbar %>
-  
+
+
 <div class="ui stackable six column centered grid">
     <div class=" ten wide tablet ten wide computer column">
         
@@ -11,8 +12,8 @@
                     <i class="search icon"></i>
                 </div>
                 <select class="ui dropdown" id="scrby">
-                    <option value="name">nazivu objekta</option>
-                    <option value="code">sifri objekta</option>
+                    <option value="name">Nazivu</option>
+                    <option value="code">Sifri</option>
                 </select>
                 <div class="results">
                     <p id="dummyresult"></p>
@@ -85,7 +86,7 @@
     </div>
 </div>
 
-
+<!-- DELETE MODAL -->
 <div class="ui mini modal">
     <div class="header">Izbrisati unos?</div>
     <div class="image content">
@@ -100,5 +101,28 @@
         </div>
     </div>
 </div>
+
+<!-- WELCOME MODAL -->
+<div class="ui basic modal" id="welcome_modal">
+    <div class="ui icon header">
+        <i class="info circle icon"></i>
+            Dobrodosao 
+            <span id="username"></span>
+    </div>
+    <hr>
+    <div class="content">
+        <p style="text-justify:distribute "">Warehouse je jednostavna "MEN" (MONGODB/EXPRESS/NODEJS) aplikacija za vodjenje magacina, izradjena iskljucivo radi sticanja licnih iskustava i licne promocije. U fazi je konstante dorade te ukoliko primetite bilo kakav "bug", molim da mi prijavite. Hvala!</p>
+        <p style="text-align:center">Ivan Radulov</p>
+    </div>
+    <hr>
+    <div class="actions">
+        <div class="ui red basic cancel inverted button" id="unshowWelcome">
+            <i class="remove icon"></i>
+            Zatvori
+        </div>
+    </div>
+</div>
+
+<script src="/welcome.js"></script>
 
 <% include ./partials/footer %>

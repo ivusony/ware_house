@@ -1,6 +1,5 @@
 const   express                 = require('express'),
         app                     = express(),
-        router                  = express.Router(),
         port                    = 3000,
         bodyParser              = require('body-parser'),
         mongoose                = require('mongoose'),
@@ -54,7 +53,7 @@ const   User                    = require('./models/user');
         app.use(adminRoutes);
         app.use(indexRoutes);
         app.use(inputRoutes);
-        app.use(editRoutes);
+        app.use(editRoutes); 
 
 //LOCALHOST CONFIG
 app.listen(port, function(){

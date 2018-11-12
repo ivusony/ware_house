@@ -19,15 +19,18 @@
         <div class="center aligned column">
             <div class="ui compact menu">
                     <a class=" item" href="/stanje">
-                        <button class="ui tiny teal  icon button" type="submit"><i class="home icon"></i></i></button>
+                        <button class="ui tiny blue  icon button" type="submit"><i class="home icon"></i></i></button>
                     </a>
                     <% if(currentUser.canCreate){ %>
                         <a class="item" href="/stanje/noviunos">
-                            <button class="ui tiny green icon button" type="submit"><i class="plus icon"></i></i></button>
+                            <button class="ui tiny blue icon button" type="submit"><i class="plus icon"></i></i></button>
                         </a>
                     <% } %>
                     <a class="item" href="">
-                        <button class="ui tiny orange icon button" type="submit"><i class="print icon"></i></button>
+                        <button class="ui tiny blue icon button" type=""><i class="print icon"></i></button>
+                    </a>
+                    <a class="item" href="">
+                        <button class="ui tiny blue icon button" id="searchUnits" type=""><i class="search icon"></i></button>
                     </a>
             </div>        
         </div>

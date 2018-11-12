@@ -14,7 +14,7 @@
             });
         },
         addUser : function(req, res){
-            User.register(new User({username: req.body.username, canCreate: req.body.canCreate, canEdit: req.body.canEdit, canDelete: req.body.canDelete}),req.body.password, function(err, user){
+            User.register(new User({username: req.body.username, canCreate: req.body.canCreate, canEdit: req.body.canEdit, canDelete: req.body.canDelete, showWelcome: true}),req.body.password, function(err, user){
                 if (err) {
                     console.log('=================================');
                     console.log('Error adding user:');

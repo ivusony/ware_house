@@ -9,7 +9,11 @@ var UserSchema = new mongoose.Schema({
     warehouse: String,
     canCreate: Boolean,
     canEdit: Boolean,
-    canDelete: Boolean
+    canDelete: Boolean,
+    showWelcome: {
+        type: Boolean,
+        required: true
+    }
 });
 
 UserSchema.plugin(passportLocalMongoose);
