@@ -9,6 +9,13 @@ const   express                 = require('express'),
         passportLocalMongoose   = require('passport-local-mongoose'),
         methodOveride           = require('method-override'),
         expressSanitizer        = require('express-sanitizer');
+
+//DEFINING ROUTES
+const   loginRoutes               = require('./routes/login'), 
+        adminRoutes               = require('./routes/admin'), 
+        indexRoutes               = require('./routes/index'),  
+        inputRoutes               = require('./routes/input'), 
+        editRoutes                = require('./routes/edit');    
 //new user schema
 const   User                    = require('./models/user');
 //DB CONNECTION
@@ -42,30 +49,13 @@ const   User                    = require('./models/user');
             res.locals.currentUser = req.user;
             next();
         });
-//CONTROLLERS
-const   loginController     = require("./controllers/login"),
-        adminController     = require("./controllers/admin"),
-        indexController     = require("./controllers/index"),
-        inputController     = require("./controllers/input"),
-        editController      = require("./controllers/edit");
-//ROUTES
-app.get('/login', loginController.renderPage); //render login
-app.post('/login' , loginController.authUser); //auth user
-app.get('/logout', loginController.logout);  //logout user
-//===================================================================
-app.get('/admin', loginController.isLoggedIn, loginController.isAuthorised, adminController.renderUsers); //render existing users
-app.post('/admin', adminController.addUser); //add user
-app.delete('/admin/:id', adminController.destroyUser); //destroy user
-//==================================================================
-app.get('/', indexController.redirect); //redirect to stanje
-app.get('/stanje', loginController.isLoggedIn, indexController.renderUnits); //render index page with units and current user
-app.post('/search', indexController.searchUnits); //search units
-app.delete('/stanje/:id', indexController.destroyUnit)//destroy unit
-//==================================================================
-app.get('/stanje/noviunos', loginController.isLoggedIn, inputController.renderPage); //render new input form
-app.post('/stanje', inputController.saveUnit); //save new unit
-app.get('/stanje/:id',  loginController.isLoggedIn , editController.renderEdit); //render edit form
-app.put('/stanje/:id', editController.saveEdited); //save changes
+//CALLING ROUTES
+        app.use(loginRoutes);
+        app.use(adminRoutes);
+        app.use(indexRoutes);
+        app.use(inputRoutes);
+        app.use(editRoutes);
+
 //LOCALHOST CONFIG
 app.listen(port, function(){
     console.log('App is running')

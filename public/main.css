@@ -55,7 +55,8 @@ body {
 }
 
 #login-form {
-    background: rgba(241, 241, 241, 0.7);
+    /* background: rgba(241, 241, 241, 0.7); */
+    background: transparent;
     -webkit-box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
     -moz-box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
     box-shadow: 0px 3px 12px 3px rgba(120,120,120,0.28);
