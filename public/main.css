@@ -65,3 +65,11 @@ body {
 .font_light {
     color: seashell !important;
 }
+
+.ui.menu{
+    background: rgba(184, 184, 184, 0.1);
+}
+
+.item {
+    color: seashell !important;
+}

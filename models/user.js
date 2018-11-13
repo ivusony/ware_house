@@ -13,7 +13,8 @@ var UserSchema = new mongoose.Schema({
     showWelcome: {
         type: Boolean,
         required: true
-    }
+    },
+    lastActive: String
 });
 
 UserSchema.plugin(passportLocalMongoose);

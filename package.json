@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/ivusony/ware_house/issues"
   },
-  "homepage": "https://github.com/ivusony/ware_house#readme"
+  "homepage": "https://github.com/ivusony/ware_house#readme",
+  "devDependencies": {
+    "faker": "^4.1.0"
+  }
 }

@@ -18,7 +18,13 @@ const   loginRoutes               = require('./routes/login'),
 //new user schema
 const   User                    = require('./models/user');
 //DB CONNECTION
-        mongoose.connect('mongodb://localhost/testdb');
+        mongoose.connect('mongodb://localhost/magacin_app')
+        .then((success)=>{
+                console.log('Connected to DB')
+        })
+        .catch((err)=>{
+                console.log("Error connecting to DB")
+        });
 //TEMPLATING ENGINE SETUP
         app.set('view engine', 'ejs');
 //SESSION
@@ -40,7 +46,7 @@ const   User                    = require('./models/user');
 //PASSPORTJS SETUP
         app.use(passport.initialize());
         app.use(passport.session());
-        passport.use(new localStrategy(User.authenticate()))   
+        passport.use(new localStrategy(User.authenticate())); 
         passport.serializeUser(User.serializeUser());
         passport.deserializeUser(User.deserializeUser());
 //USER MIDDLEWARE SETUP

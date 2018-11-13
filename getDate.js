@@ -23,7 +23,7 @@ module.exports = {
                 h = '0'+m
             }
         
-            today = `${dd}/${mm}/${yyyy}   ${h}:${m}`
-            return today
+            today = `${dd}/${mm}/${yyyy}/${h}:${m}`
+            return today;
         }
 }

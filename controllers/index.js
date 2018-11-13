@@ -1,6 +1,8 @@
 {
     const   Unit    = require('../models/unitModel'),
             User    = require('../models/user');
+    //custom date stamp
+    const timestamp = require("../getDate");
 
     module.exports = {
         redirect : function(req, res){
@@ -21,11 +23,9 @@
             // console.log(req.user)
         },
         showWelcome : function(req, res, next){
-            console.log(req.session);
             res.send(res.locals.currentUser)
         },
         unshowWelcome : function(req, res, next){
-            console.log(req.body.id);
             User.findByIdAndUpdate({_id:req.body.id}, {
                 $set:{showWelcome:false}
             }, (err, updated)=>{
